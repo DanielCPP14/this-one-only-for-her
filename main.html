@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Your Journey, Your Story</h1>
+            <p>Every moment shapes who you are</p>
+        </div>
+
+        <div class="section-container">
+            <div class="section" style="animation: fadeIn 1s ease forwards 0.2s">
+                <i class="fas fa-car"></i>
+                <h2>Drive Your Dreams</h2>
+                <p>Rovnako ako vaša láska k autám, aj život je cesta. Každý kilometer prináša nové obzory, každá zákruta vedie k objavom. Keď sa cesta stane ťažkou, nezabudnite: ste stavaní na to, aby ste zvládli akýkoľvek terén.</p>
+            </div>
+
+            <div class="section" style="animation: fadeIn 1s ease forwards 0.4s">
+                <i class="fas fa-sun"></i>
+                <h2>Bloom Through Darkness</h2>
+                <p>Tak ako slnečnice vždy nachádzajú svetlo, aj vy máte silu hľadať jas v temných časoch. Vaša odolnosť je vašou superschopnosťou, ktorá sa vždy obracia k nádeji.</p>
+            </div>
+
+            <div class="section" style="animation: fadeIn 1s ease forwards 0.6s">
+                <i class="fas fa-bullseye"></i>
+                <h2>Precision and Purpose</h2>
+                <p>Vaša vášeň pre hádzanie sekier a nožov svedčí o vašom sústredení a odhodlaní. Život, rovnako ako mierenie, sa cvičením zlepšuje. Každý hod učí trpezlivosti a vytrvalosti.</p>
+            </div>
+
+            <div class="section" style="animation: fadeIn 1s ease forwards 0.8s">
+                <i class="fas fa-landmark"></i>
+                <h2>Build Your Future</h2>
+                <p>Ako bankový technik pomáhate budovať a udržiavať systémy, na ktoré sa ostatní spoliehajú. Pamätajte: zaslúžite si rovnakú starostlivosť a údržbu, akú poskytujete ostatným.</p>
+            </div>
+
+            <div class="section" style="animation: fadeIn 1s ease forwards 1s">
+                <i class="fas fa-mountain"></i>
+                <h2>Reach New Heights</h2>
+                <p>Vysoké Tatry sú vaším snom. Tak ako tieto majestátne hory, aj vaše ciele sa môžu zdať vzdialené, ale každý krok vás k nim približuje. Pohľad z vrcholu bude stáť za výstup.</p>
+            </div>
+        </div>
+
+        <div class="inspirational">
+            <q>When you feel like giving up, remember why you held on for so long in the first place.</q>
+        </div>
+    </div>
+
+    <div class="sunflower"></div>
+    <div class="mountain"></div>
+
+    <!-- Audio Player -->
+    <div class="audio-player">
+        <audio id="bgMusic" loop>
+            <source src="./media/bg_music.mp3" type="audio/mp3">
+        </audio>
+        <button id="audioControl" class="audio-control">
+            <i class="fas fa-music"></i>
+        </button>
+    </div>
+</body>
+<script>
+    document.querySelectorAll('.section').forEach(section => {
+        section.addEventListener('click', () => {
+            section.classList.toggle('active');
+        });
+    });
+
+    // Create falling sunflower petals animation
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.style.position = 'fixed';
+        petal.style.width = '20px';
+        petal.style.height = '20px';
+        petal.style.background = '#ffd700';
+        petal.style.clipPath = 'polygon(50% 0%, 80% 40%, 100% 50%, 80% 60%, 50% 100%, 20% 60%, 0% 50%, 20% 40%)';
+        petal.style.left = Math.random() * window.innerWidth + 'px';
+        petal.style.top = '-20px';
+        petal.style.opacity = '0.3';
+        petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+        petal.style.transition = 'all 5s linear';
+        petal.style.zIndex = '-1';
+        
+        document.body.appendChild(petal);
+
+        setTimeout(() => {
+            petal.style.top = '120vh';
+            petal.style.transform = `rotate(${Math.random() * 720}deg) translateX(${Math.random() * 100 - 50}px)`;
+        }, 100);
+
+        setTimeout(() => {
+            document.body.removeChild(petal);
+        }, 5000);
+    }
+
+    setInterval(createPetal, 3000);
+
+    // Add parallax effect to mountain
+    document.addEventListener('mousemove', (e) => {
+        const mountain = document.querySelector('.mountain');
+        const mouseX = e.clientX / window.innerWidth - 0.5;
+        const mouseY = e.clientY / window.innerHeight - 0.5;
+        
+        mountain.style.transform = `translate(${mouseX * 20}px, ${mouseY * 20}px)`;
+    });
+
+    const audioControl = document.getElementById('audioControl');
+const bgMusic = document.getElementById('bgMusic');
+let isPlaying = false;
+
+audioControl.addEventListener('click', () => {
+    if (isPlaying) {
+        bgMusic.pause();
+        audioControl.innerHTML = '<i class="fas fa-music">♬</i>';
+    } else {
+        bgMusic.play();
+        audioControl.innerHTML = '<i class="fas fa-music-simple">♬</i>';
+    }
+    isPlaying = !isPlaying;
+});
+</script>
+</html>
